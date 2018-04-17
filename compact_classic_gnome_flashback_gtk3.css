@@ -1,0 +1,158 @@
+/* by pts@fazekas.hu at Mon Mar  5 16:47:28 CET 2018
+
+~/.config/gtk-3.0/gtk.css
+
+Compact, classic look for Gnome and Metacity 3.24 (works with Rodete on
+2018-03-05). By classic I mean similar to how Gnome 2 looked in 2010: no
+round edges, no unnecessary whitespace, no animations, no shadows.
+
+Features:
+
+* No animations.
+* No shadows.
+* No transparency or other compositioning in window decorations.
+* No color gradients in window decorations.
+* Window title is not rounded.
+* Active (focused) window has a different window title color.
+* Window title is not taller than necessary.
+* Windows are packed tightly next to each other.
+* Single-pixel window border.
+* (Background color or image is configurable.)
+* (Not all aspects are fixed, e.g. window boxes in gnome-panel still have
+  round edges.)
+
+Installation:
+
+* Run these commands:
+
+  sudo apt-get install gnome-tweak-tool
+  sudo apt-get install gnome-flashback mate-themes dmz-cursor-theme
+  gsettings set org.gnome.metacity reduced-resources false
+  gsettings set org.gnome.desktop.interface enable-animations false
+  gsettings set org.gnome.mines use-animations false
+  gsettings set org.cinnamon.desktop.interface enable-animations false
+  gsettings set org.cinnamon startup-animation false
+  gsettings set org.gnome.metacity compositing-manager false
+  gsettings set org.gnome.desktop.interface cursor-theme DMZ-White
+  gsettings set org.gnome.desktop.interface icon-theme   DMZ-White
+  gsettings set org.gnome.desktop.interface gtk-theme TraditionalOk
+  gsettings set org.gnome.desktop.wm.preferences focus-mode mouse
+  gsettings set org.cinnamon.desktop.wm.preferences focus-mode mouse
+  mkdir -p ~/.config/gtk-3.0
+
+* Copy this file to ~/.config/gtk-3.0/gtk.css
+
+* Log out, and log in with session type ``GNOME Flaskback (Metacity)''. You
+  can select it by using one of the icons in the top right corner of the
+  login screen.
+
+* It should work now, enjoy.
+
+* If you make changes to this file, run `metacity-message reload-theme' to
+  make the changes take effect.
+
+  Additionally, you have to kill and restart gnome-panel to make the changes
+  take effect there.
+
+*/
+
+@define-color user_ubuntu_dark_highlight  #ce8a42;
+@define-color user_ubuntu_light_highlight #fecf8b;
+@define-color user_window_title_focused   @user_ubuntu_dark_highlight;
+@define-color user_window_title_unfocused @user_ubuntu_light_highlight;
+
+/* The theme uses it for non-window shadows. */
+@define-color wm_shadow alpha(black, 0);
+
+/* All uses by theme overridden here. */
+@define-color wm_border red;
+@define-color wm_bg_a red;
+@define-color wm_csd_solid_border_color red;
+
+/* Unused by theme. */
+@define-color wm_bg_b red;
+
+/* The theme uses it for window title (but we override that one here) and
+ * for others (e.g. screen saver password prompt background), keeping it
+ * unchaged. Restart gnome-panel to make it take effect there.
+ */
+/* @define-color theme_bg_color #00f; */
+
+/* Window border ond other decoration.
+ *
+ * HTML CSS draws: margin / border / padding / content.
+ * .csd draws: box-shadow / transparent margin / transparent padding / border / content.
+ * .solid-csd draws: border / margin / padding / content.
+ */
+.background.csd decoration,
+.background.solid-csd decoration,
+.background.ssd decoration,
+messagedialog.csd decoration,
+messagedialog.solid-csd decoration,
+messagedialog.ssd decoration,
+.csd decoration,
+.solid-csd decoration,
+.ssd decoration {
+  box-shadow: none;
+  border-radius: 0;  /* No round corners. */
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+tooltip decoration,
+.tooltip decoration,
+tooltip.csd decoration,
+.tooltip.csd decoration,
+tooltip.ssd decoration,
+.tooltip.ssd decoration,
+tooltip.solid-csd decoration,
+.tooltip.solid-csd decoration,
+tooltip.background.csd decoration,
+.tooltip.background.csd decoration,
+tooltip.background.ssd decoration,
+.tooltip.background.ssd decoration,
+tooltip.background.solid-csd decoration,
+.tooltip.background.solid-csd decoration {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid black;
+  padding: 0;
+  margin: 0;
+}
+
+tooltip,
+tooltip.background,
+.tooltip,
+.tooltip.background {
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+headerbar:backdrop, .titlebar:backdrop {  /* Unfocused window title. */
+  background-image: none;
+  background-color: @user_window_title_unfocused;
+}
+
+headerbar, .titlebar {  /* Window title (focused). */
+  padding: 0px 0px 0px 0px;
+  background-image: none;
+  background-color: @user_window_title_focused;
+  border-radius: 0;  /* No round corners. */
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+headerbar .title, .titlebar .title {
+  color: black;
+  font-size: 10pt; font-family: Arial; font-weight: bold;
+}
+
+.titlebar button.titlebutton {
+  padding: 0px 0px 0px 0px;
+}
+
+/* __END__ */
