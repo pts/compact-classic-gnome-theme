@@ -24,7 +24,7 @@ Features:
 
 Installation:
 
-* Run these commands:
+* Run these commands (on Debian 9 and 10):
 
   sudo apt-get install gnome-tweak-tool
   sudo apt-get install gnome-flashback mate-themes dmz-cursor-theme
@@ -54,6 +54,11 @@ Installation:
 
   Additionally, you have to kill and restart gnome-panel to make the changes
   take effect there.
+
+Docs:
+
+* https://developer.gnome.org/gtk3/stable/chap-css-overview.html
+* https://developer.gnome.org/gtk3/stable/chap-css-properties.html
 
 */
 
@@ -140,20 +145,46 @@ headerbar:backdrop, .titlebar:backdrop {  /* Unfocused window title. */
 
 headerbar, .titlebar {  /* Window title (focused). */
   padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;  /* No difference. */
   background-image: none;
   background-color: @user_window_title_focused;
   border-radius: 0;  /* No round corners. */
   border: none;
   border-bottom: 1px solid black;
+  min-height: 10px;  /* Makes a difference on GTK 3.22. */
+  min-width: 10px;  /* Makes a difference on GTK 3.22. */
 }
 
 headerbar .title, .titlebar .title {
-  color: black;
-  font-size: 10pt; font-family: Arial; font-weight: bold;
+  color: black;  /* Respected. */
+  /* If this is specified: gsettings set org.gnome.desktop.wm.preferences titlebar-uses-system-font false
+   * then this is respected instead: gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Helvetica Bold 9'
+   */
+  font-size: 10pt; font-family: Arial; font-weight: bold;  /* None respected. */
+  margin: 2pt 0px 0pt 0px;  /* Show the bottom of the letter g. */
 }
 
+/* Icon images are affected by:
+ * gsettings set org.gnome.desktop.interface icon-theme
+ */
 .titlebar button.titlebutton {
   padding: 0px 0px 0px 0px;
+  /* border: none; */  /* Respected. */
+  /* border-radius: 0; */  /* Respected. */
+  /* background-color: red; */  /* Respected. */
+  min-height: 1px;  /* Makes a difference on GTK 3.22. */
+  min-width: 1px;  /* Makes a difference on GTK 3.22. */
+  color: black;
+}
+
+.titlebar button.titlebutton:backdrop {
+  /* background-color: red; */  /* Respected. */
+  color: black;  /* Respected. */
+}
+
+/* Buttons in gnome-panel Window List */
+#tasklist-button label {
+  color: black;
 }
 
 /* __END__ */
