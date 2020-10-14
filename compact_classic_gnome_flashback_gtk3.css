@@ -1,11 +1,10 @@
 /* gtk3.css: compact, classic GNOME Flashback GTK+ 3 theme
 by pts@fazekas.hu at Mon Mar  5 16:47:28 CET 2018
 
-gtk3.css is a compact, classic theme for GNOME 3 and Metacity
+gtk3.css is a compact, classic theme for GNOME Flashback and Metacity
 3.24--3.28--3.36-- (works with Debian 9 on 2018-03-05, Debian 10 and Ubuntu
-18.04) and Metacity 3.28 (Ubuntu 18.04). By classic I mean similar to how
-GNOME 2 looked in 2010: no round edges, no unnecessary whitespace, no
-animations, no shadows.
+18.04) and GTK+ 3.22--3.24--. It looks similar to how GNOME 2 looked in
+2010: no round edges, no unnecessary whitespace, no animations, no shadows.
 
 Save as ~/.config/gtk-3.0/gtk.css . See more installation instructions below.
 
