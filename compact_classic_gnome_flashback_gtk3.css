@@ -1,11 +1,13 @@
-/* by pts@fazekas.hu at Mon Mar  5 16:47:28 CET 2018
+/* gtk3.css: compact, classic GNOME Flashback GTK+ 3 theme
+by pts@fazekas.hu at Mon Mar  5 16:47:28 CET 2018
 
-~/.config/gtk-3.0/gtk.css
-
-Compact, classic look for Gnome and Metacity 3.24 (works with Debian 9 on
-2018-03-05) and Metacity 3.28 (Ubuntu 18.04). By classic I mean similar to
-how Gnome 2 looked in 2010: no round edges, no unnecessary whitespace, no
+gtk3.css is a compact, classic theme for GNOME 3 and Metacity
+3.24--3.28--3.36-- (works with Debian 9 on 2018-03-05, Debian 10 and Ubuntu
+18.04) and Metacity 3.28 (Ubuntu 18.04). By classic I mean similar to how
+GNOME 2 looked in 2010: no round edges, no unnecessary whitespace, no
 animations, no shadows.
+
+Save as ~/.config/gtk-3.0/gtk.css . See more installation instructions below.
 
 Features:
 
@@ -18,47 +20,99 @@ Features:
 * Window title is not taller than necessary.
 * Windows are packed tightly next to each other.
 * Single-pixel window border.
+* Window title and buttons are black (rather than gray).
 * (Background color or image is configurable.)
 * (Not all aspects are fixed, e.g. window boxes in gnome-panel still have
   round edges.)
 
-Installation:
+Similar projects:
 
-* Run these commands (on Debian 9 and 10):
+* The Raleigh Reloaded theme
+  (https://github.com/vlastavesely/raleigh-reloaded) is a GTK+ 3.20 theme
+  (mostly styles widgets and the MATE desktop) attempting to revive the
+  Raleigh theme (the default theme of GTK+ 2).
 
-  sudo apt-get install gnome-tweak-tool
-  sudo apt-get install gnome-flashback mate-themes dmz-cursor-theme
-  gsettings set org.gnome.metacity reduced-resources false
+* The raleigh-reloaded-compact theme (https://gnome-look.org/p/1255184)
+  is a compact version of the Raleigh Reloaded theme with some widgets fixed.
+
+* The Clearlooks-compact theme (https://gnome-look.org/p/1284820)
+  is a modern (GTK 3.22) compact version of the classic Clearlooks theme.
+
+Installation instructions:
+
+* Run these commands (on Debian 9, Debian 10 or Ubuntu 18.04):
+
+  sudo apt-get install gnome-session-flashback dmz-cursor-theme
+  #gsettings set org.cinnamon startup-animation false
+  #gsettings set org.cinnamon.desktop.interface enable-animations false
+  #gsettings set org.gnome.mines use-animations false
   gsettings set org.gnome.desktop.interface enable-animations false
-  gsettings set org.gnome.mines use-animations false
-  gsettings set org.cinnamon.desktop.interface enable-animations false
-  gsettings set org.cinnamon startup-animation false
-  gsettings set org.gnome.metacity compositing-manager false
+  gsettings set org.gnome.desktop.interface gtk-theme    Adwaita  # Default.
   gsettings set org.gnome.desktop.interface cursor-theme DMZ-White
   gsettings set org.gnome.desktop.interface icon-theme   DMZ-White
-  gsettings set org.gnome.desktop.interface gtk-theme TraditionalOk
-  gsettings set org.gnome.desktop.wm.preferences focus-mode mouse
-  gsettings set org.cinnamon.desktop.wm.preferences focus-mode mouse
+  gsettings set org.gnome.metacity compositing-manager false
+  gsettings set org.gnome.metacity reduced-resources false
+  gsettings set org.gnome.desktop.wm.preferences titlebar-uses-system-font true
   mkdir -p ~/.config/gtk-3.0
+
+* Optionally, set the background by running these commands:
+
+  gsettings set org.gnome.desktop.background picture-options none
+  gsettings set org.gnome.desktop.background primary-color   '#7a8aa2'
+  gsettings set org.gnome.desktop.background secondary-color '#7a8aa2'
+  gsettings set org.gnome.desktop.screensaver picture-options none
+  gsettings set org.gnome.desktop.screensaver primary-color   '#7a634b'
+  gsettings set org.gnome.desktop.screensaver secondary-color '#7a634b'
+
+* Optionally, set the mouse and keyboard bahavior by running these commands:
+
+  #gsettings set org.cinnamon.desktop.wm.preferences focus-mode sloppy
+  gsettings set org.gnome.desktop.wm.preferences focus-mode sloppy
+  gsettings set org.gnome.desktop.peripherials.touchpad natural-scroll false
+  gsettings set org.gnome.desktop.peripherials.touchpad tap-to-click false
+  gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
+
+* Optionally, disable desktop iconds by running these commands:
+
+  gsettings set org.gnome.nautilus.desktop trash-icon-visible false
+  gsettings set org.gnome.nautilus.desktop home-icon-visible false
+  gsettings set org.gnome.nautilus.desktop network-icon-visible false
+  gsettings set org.gnome.nautilus.desktop volumes-visible false
+  gsettings set org.gnome.desktop.background show-desktop-icons false
 
 * Copy this file to ~/.config/gtk-3.0/gtk.css
 
-* Log out, and log in with session type ``GNOME Flaskback (Metacity)''. You
+* Log out, and log in with session type ``GNOME Flashback (Metacity)''. You
   can select it by using one of the icons in the top right corner of the
-  login screen.
+  login screen, or the gear icon on the login screen.
 
 * It should work now, enjoy.
 
-* If you make changes to this file, run `metacity-message reload-theme' to
-  make the changes take effect.
+* If you make changes to this file, run `metacity-message reload-theme' or
+  `metacity-message restart' to make the changes take effect.
 
   Additionally, you have to kill and restart gnome-panel to make the changes
-  take effect there.
+  take effect there. (If you restart it too frequently, gnome-session (?)
+  will log you out.)
 
-Docs:
+Docs about the CSS elements and properties available:
 
 * https://developer.gnome.org/gtk3/stable/chap-css-overview.html
 * https://developer.gnome.org/gtk3/stable/chap-css-properties.html
+
+TODO:
+
+* Add color transiiton in window titles, similar to the Ubuntu 14.04 Metabox +
+  Radiance theme.
+
+* Copy over TraditionalOk gtk-theme settings (to override the default Adwaita):
+
+  * Workspace selector gnome-panel widget should have more gray (rather than
+    blue) background for windows.
+  * Less whitespace between Applications and Panels on gnome-panel.
+  * Darker gnome-panel Task list button borders.
+  * Smaller combo box buttons.
+  * Smaller vertical padding in UI buttons.
 
 */
 
